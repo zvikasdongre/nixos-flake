@@ -111,6 +111,7 @@
   services.printing.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -127,7 +128,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-  security.pam.services.sddm.enableGnomeKeyring = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -227,6 +227,9 @@
     kdePackages.qt5compat
     kdePackages.qtimageformats
     kdePackages.qtmultimedia
+
+    # Fabric Widgets
+    inputs.fabric-widgets.packages.${pkgs.system}.run-widget
 
     # themes & theming utilities
     mint-cursor-themes
