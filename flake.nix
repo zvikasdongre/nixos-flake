@@ -17,6 +17,10 @@
     # Fabric
     fabric-widgets.url = "github:Fabric-Development/fabric";
 
+    silentSDDM = {
+      url = "github:uiriansan/SilentSDDM";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {

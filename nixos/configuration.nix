@@ -9,7 +9,28 @@
   lib,
   ...
 }:
+let
+  wallpaper = pkgs.fetchurl {
+    url = "https://w.wallhaven.cc/full/je/wallhaven-jeej1q.jpg";
+    hash = "sha256-ez3QBbOkRApfrAHc0K622l5rdwWViUhIbUksw0ziZiU=";
+  };
 
+  sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
+    theme = "silvia";
+
+    extraBackgrounds = [ wallpaper ];
+    theme-overrides = {
+      # Available options: https://github.com/uiriansan/SilentSDDM/wiki/Options
+      "LoginScreen" = {
+        background = "${wallpaper.name}";
+      };
+      "LockScreen" = {
+        background = "${wallpaper.name}";
+      };
+    };
+
+  };
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -72,15 +93,14 @@
 
   # Enable SDDM.
   services.displayManager.sddm = {
+    package = pkgs.kdePackages.sddm;
+
     enable = true;
     wayland.enable = true;
     enableHidpi = true;
 
-    theme = "${
-      pkgs.sddm-astronaut.override {
-        embeddedTheme = "japanese_aesthetic";
-      }
-    }/share/sddm/themes/sddm-astronaut-theme";
+    theme = sddm-theme.pname;
+    extraPackages = sddm-theme.propagatedBuildInputs;
 
     settings = {
       General = {
@@ -91,7 +111,10 @@
           "QT_AUTO_SCREEN_SCALE_FACTOR=0"
           "QT_SCREEN_SCALE_FACTORS=2"
           "QT_FONT_DPI=192"
+          "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/"
+          "QT_IM_MODULE=qtvirtualkeyboard"
         ];
+        InputMethod = "qtvirtualkeyboard";
       };
 
       Theme = {
@@ -128,6 +151,16 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+
+  systemd.tmpfiles.rules =
+    let
+      user = "vikas";
+      iconPath = "${config.users.users.vikas.home}/.face.icon";
+    in
+    [
+      "f+ /var/lib/AccountsService/users/${user}  0600 root root -  [User]\\nIcon=/var/lib/AccountsService/icons/${user}\\n"
+      "L+ /var/lib/AccountsService/icons/${user}  -    -    -    -  ${iconPath}"
+    ];
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -227,6 +260,7 @@
     kdePackages.qt5compat
     kdePackages.qtimageformats
     kdePackages.qtmultimedia
+    kdePackages.qtvirtualkeyboard
 
     # Fabric Widgets
     inputs.fabric-widgets.packages.${pkgs.system}.run-widget
@@ -241,7 +275,8 @@
     libsForQt5.qt5ct
     kdePackages.qt6ct
     kdePackages.qtstyleplugin-kvantum
-    sddm-astronaut
+    sddm-theme
+    sddm-theme.test
   ];
 
   fonts = {
