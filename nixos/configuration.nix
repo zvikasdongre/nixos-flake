@@ -152,6 +152,10 @@ in
     #media-session.enable = true;
   };
 
+  services = {
+    hypridle.enable = true;
+  };
+
   systemd.tmpfiles.rules =
     let
       user = "vikas";
@@ -187,6 +191,8 @@ in
     enable = true;
     withUWSM = true;
   };
+
+  programs.hyprlock.enable = true;
 
   # Setup git
   programs.git = {
