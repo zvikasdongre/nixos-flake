@@ -132,9 +132,11 @@ in
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.upower.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.sddm.enableGnomeKeyring = true;
+  security.pam.services.login.enableGnomeKeyring = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -212,6 +214,11 @@ in
     "flakes"
   ];
 
+  xdg = {
+    mime.enable = true;
+    portal.enable = true;
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -223,11 +230,12 @@ in
     brightnessctl
     dunst
     libnotify
-    xdg-desktop-portal
     hyprpolkitagent
     xstow
     efibootmgr
     nixfmt-rfc-style
+    home-manager
+    matugen
 
     # Fonts
     jetbrains-mono
@@ -246,6 +254,7 @@ in
     stow
     atuin
     btop
+    pix
 
     # launcher
     inputs.vicinae.packages.${pkgs.system}.default
