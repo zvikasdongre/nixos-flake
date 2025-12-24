@@ -124,6 +124,10 @@ in
     };
   };
 
+  services.logind.settings.Login = {
+    HandlePowerKey = "ignore";
+  };
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -236,11 +240,14 @@ in
     nixfmt-rfc-style
     home-manager
     matugen
+	gnome-bluetooth
+	adw-gtk3
 
     # Fonts
     jetbrains-mono
     ubuntu-sans
     noto-fonts
+	material-symbols
 
     # Common Programs
     vscode
@@ -280,6 +287,17 @@ in
     # Fabric Widgets
     inputs.fabric-widgets.packages.${pkgs.system}.run-widget
 
+	# Ignis Widgets
+	(inputs.ignis.packages.${pkgs.system}.default.override {
+      enableAudioService = true;
+      enableNetworkService = true;
+      enableBluetoothService = true;
+      useGrassSass = true;
+      extraPackages = [
+        # ...
+      ];
+    })
+
     # themes & theming utilities
     mint-cursor-themes
     afterglow-cursors-recolored
@@ -299,6 +317,7 @@ in
       jetbrains-mono
       ubuntu-sans
       noto-fonts
+	  material-symbols
     ];
     fontconfig = {
       defaultFonts = {
