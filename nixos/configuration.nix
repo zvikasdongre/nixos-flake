@@ -51,8 +51,23 @@ in
       efiSupport = true;
       efiInstallAsRemovable = false; # Otherwise /boot/EFI/BOOT/BOOTX64.EFI isn't generated
       devices = [ "nodev" ];
-      useOSProber = true;
+      useOSProber = false;
       extraEntriesBeforeNixOS = true;
+
+      extraEntries = ''
+        menuentry "Linux Mint 22.2 Zara" --class linuxmint --class gnu-linux --class gnu --class os {
+          insmod part_gpt
+          insmod ext2
+
+          search --no-floppy --fs-uuid --set=root ecbee46f-8de4-42a1-8129-f027a44ce230
+
+          linux /boot/vmlinuz \
+            root=UUID=ecbee46f-8de4-42a1-8129-f027a44ce230 \
+            ro quiet splash
+
+          initrd /boot/initrd.img
+        }
+      '';
     };
   };
 
@@ -240,14 +255,14 @@ in
     nixfmt-rfc-style
     home-manager
     matugen
-	gnome-bluetooth
-	adw-gtk3
+    gnome-bluetooth
+    adw-gtk3
 
     # Fonts
     jetbrains-mono
     ubuntu-sans
     noto-fonts
-	material-symbols
+    material-symbols
 
     # Common Programs
     vscode
@@ -287,8 +302,8 @@ in
     # Fabric Widgets
     inputs.fabric-widgets.packages.${pkgs.system}.run-widget
 
-	# Ignis Widgets
-	(inputs.ignis.packages.${pkgs.system}.default.override {
+    # Ignis Widgets
+    (inputs.ignis.packages.${pkgs.system}.default.override {
       enableAudioService = true;
       enableNetworkService = true;
       enableBluetoothService = true;
@@ -317,7 +332,7 @@ in
       jetbrains-mono
       ubuntu-sans
       noto-fonts
-	  material-symbols
+      material-symbols
     ];
     fontconfig = {
       defaultFonts = {
