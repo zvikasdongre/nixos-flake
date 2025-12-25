@@ -106,6 +106,12 @@ in
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
+  # Enable Android UDEV rules
+  services.udev.enable = true;
+  
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+
   # Enable SDDM.
   services.displayManager.sddm = {
     package = pkgs.kdePackages.sddm;
@@ -225,6 +231,11 @@ in
     };
   };
 
+  programs.fuse = {
+	enable = true;
+	userAllowOther = true;
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -257,6 +268,10 @@ in
     matugen
     gnome-bluetooth
     adw-gtk3
+	usbutils
+	libmtp
+	glib
+	jmtpfs
 
     # Fonts
     jetbrains-mono
