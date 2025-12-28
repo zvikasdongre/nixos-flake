@@ -71,7 +71,7 @@ in
     };
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "kronos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -272,6 +272,7 @@ in
 	libmtp
 	glib
 	jmtpfs
+	wev
 
     # Fonts
     jetbrains-mono
@@ -323,8 +324,10 @@ in
       enableNetworkService = true;
       enableBluetoothService = true;
       useGrassSass = true;
-      extraPackages = [
-        # ...
+      extraPackages = with pkgs.python313Packages; [
+	    jinja2
+        materialyoucolor
+        pillow
       ];
     })
 
