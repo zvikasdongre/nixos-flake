@@ -37,7 +37,7 @@
   outputs =
     { self, nixpkgs, ... }@inputs:
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.kronos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [ ./nixos/configuration.nix ];
       };
