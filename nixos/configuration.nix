@@ -159,6 +159,7 @@ in
   services.printing.enable = true;
   services.upower.enable = true;
 
+  services.tlp.enable = true;
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.sddm.enableGnomeKeyring = true;
   security.pam.services.login.enableGnomeKeyring = true;
@@ -273,6 +274,11 @@ in
 	glib
 	jmtpfs
 	wev
+
+	# Power management
+	lm_sensors
+	powertop
+	
 
     # Fonts
     jetbrains-mono
