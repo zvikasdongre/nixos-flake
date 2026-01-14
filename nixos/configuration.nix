@@ -1,15 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {
   config,
   pkgs,
   inputs,
   lib,
   ...
-}:
-let
+}: let
   wallpaper = pkgs.fetchurl {
     url = "https://w.wallhaven.cc/full/je/wallhaven-jeej1q.jpg";
     hash = "sha256-ez3QBbOkRApfrAHc0K622l5rdwWViUhIbUksw0ziZiU=";
@@ -18,7 +16,7 @@ let
   sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
     theme = "silvia";
 
-    extraBackgrounds = [ wallpaper ];
+    extraBackgrounds = [wallpaper];
     theme-overrides = {
       # Available options: https://github.com/uiriansan/SilentSDDM/wiki/Options
       "LoginScreen" = {
@@ -28,10 +26,8 @@ let
         background = "${wallpaper.name}";
       };
     };
-
   };
-in
-{
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -50,7 +46,7 @@ in
       enable = true;
       efiSupport = true;
       efiInstallAsRemovable = false; # Otherwise /boot/EFI/BOOT/BOOTX64.EFI isn't generated
-      devices = [ "nodev" ];
+      devices = ["nodev"];
       useOSProber = false;
       extraEntriesBeforeNixOS = true;
 
@@ -158,8 +154,8 @@ in
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.upower.enable = true;
+  services.tuned.enable = true;
 
-  services.tlp.enable = true;
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.sddm.enableGnomeKeyring = true;
   security.pam.services.login.enableGnomeKeyring = true;
@@ -184,15 +180,13 @@ in
     hypridle.enable = true;
   };
 
-  systemd.tmpfiles.rules =
-    let
-      user = "vikas";
-      iconPath = "${config.users.users.vikas.home}/.face.icon";
-    in
-    [
-      "f+ /var/lib/AccountsService/users/${user}  0600 root root -  [User]\\nIcon=/var/lib/AccountsService/icons/${user}\\n"
-      "L+ /var/lib/AccountsService/icons/${user}  -    -    -    -  ${iconPath}"
-    ];
+  systemd.tmpfiles.rules = let
+    user = "vikas";
+    iconPath = "${config.users.users.vikas.home}/.face.icon";
+  in [
+    "f+ /var/lib/AccountsService/users/${user}  0600 root root -  [User]\\nIcon=/var/lib/AccountsService/icons/${user}\\n"
+    "L+ /var/lib/AccountsService/icons/${user}  -    -    -    -  ${iconPath}"
+  ];
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -416,6 +410,7 @@ in
     glib
     jmtpfs
     wev
+    wlsunset
 
     # Power management
     lm_sensors
@@ -508,7 +503,7 @@ in
           "Ubuntu Sans"
           "Vazirmatn"
         ];
-        monospace = [ "JetBrains Mono" ];
+        monospace = ["JetBrains Mono"];
       };
     };
     fontDir.enable = true;
@@ -549,5 +544,4 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }
