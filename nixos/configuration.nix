@@ -447,9 +447,6 @@ in {
     hyprpicker
     wl-clipboard
 
-    # swww
-    inputs.swww.packages.${pkgs.system}.swww
-
     # quickshell
     quickshell
     kdePackages.qtsvg

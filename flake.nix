@@ -5,12 +5,6 @@
     #nixpkgs.url = "github:nixos/nixpkgs?ref=25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Wallpaper manager
-    swww = {
-      url = "github:LGFae/swww";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Launcher
     vicinae.url = "github:vicinaehq/vicinae";
 
