@@ -215,6 +215,7 @@ in {
   };
 
   programs.hyprlock.enable = true;
+  programs.seahorse.enable = true;
 
   # Setup git
   programs.git = {
@@ -411,6 +412,7 @@ in {
     jmtpfs
     wev
     wlsunset
+    pywalfox-native
 
     # Power management
     lm_sensors
