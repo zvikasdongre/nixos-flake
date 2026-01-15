@@ -458,25 +458,8 @@ in {
     kdePackages.qtmultimedia
     kdePackages.qtvirtualkeyboard
 
-    # Fabric Widgets
-    inputs.fabric-widgets.packages.${pkgs.system}.run-widget
-
-    # Ignis Widgets
-    (inputs.ignis.packages.${pkgs.system}.default.override {
-      enableAudioService = true;
-      enableNetworkService = true;
-      enableBluetoothService = true;
-      useGrassSass = true;
-      extraPackages = with pkgs.python313Packages; [
-        jinja2
-        materialyoucolor
-        pillow
-      ];
-    })
-
     # themes & theming utilities
     mint-cursor-themes
-    afterglow-cursors-recolored
     kvmarwaita
     whitesur-icon-theme
     whitesur-gtk-theme

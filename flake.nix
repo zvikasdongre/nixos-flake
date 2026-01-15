@@ -14,17 +14,8 @@
     # Launcher
     vicinae.url = "github:vicinaehq/vicinae";
 
-    # Fabric
-    fabric-widgets.url = "github:Fabric-Development/fabric";
-
     silentSDDM = {
       url = "github:uiriansan/SilentSDDM";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-	# Ignis
-	ignis = {
-      url = "github:ignis-sh/ignis";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -35,19 +26,22 @@
   };
 
   nixConfig = {
-    extra-substituters = [ "https://vicinae.cachix.org" ];
-    extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
+    extra-substituters = ["https://vicinae.cachix.org"];
+    extra-trusted-public-keys = ["vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="];
   };
 
-  outputs =
-    { self, nixpkgs, nvf, ... }@inputs:
-    {
-      nixosConfigurations.kronos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-		  nvf.nixosModules.default
-		  ./nixos/configuration.nix
-		];
-      };
+  outputs = {
+    self,
+    nixpkgs,
+    nvf,
+    ...
+  } @ inputs: {
+    nixosConfigurations.kronos = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        nvf.nixosModules.default
+        ./nixos/configuration.nix
+      ];
     };
+  };
 }
