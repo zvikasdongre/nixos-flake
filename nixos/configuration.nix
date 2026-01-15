@@ -178,6 +178,24 @@ in {
 
   services = {
     hypridle.enable = true;
+    syncthing = {
+      enable = true;
+      user = "vikas";
+      group = "users";
+      dataDir = "${config.users.users.vikas.home}";
+      settings = {
+        devices = {
+          "Phone" = {id = "MSSR2JQ-I7R4NLL-LZFXP2X-Y2D7O3M-DMUB4NI-KUHRF6C-BWJVKZE-HJSZEAA";};
+        };
+
+        folders = {
+          "ObsidianVault" = {
+            path = "${config.users.users.vikas.home}/ObsidianVault";
+            devices = ["Phone"];
+          };
+        };
+      };
+    };
   };
 
   systemd.tmpfiles.rules = let
@@ -436,6 +454,8 @@ in {
     atuin
     btop
     pix
+    obsidian
+    zed-editor
 
     # launcher
     inputs.vicinae.packages.${pkgs.system}.default
