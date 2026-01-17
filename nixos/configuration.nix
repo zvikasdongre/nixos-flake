@@ -456,6 +456,8 @@ in {
     pix
     obsidian
     zed-editor
+    vlc
+    smassh
 
     # launcher
     inputs.vicinae.packages.${pkgs.system}.default
