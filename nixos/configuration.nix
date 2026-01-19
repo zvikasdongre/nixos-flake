@@ -457,6 +457,7 @@ in {
     obsidian
     zed-editor
     vlc
+    mpv
     smassh
 
     # launcher
