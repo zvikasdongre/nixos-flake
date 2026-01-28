@@ -218,13 +218,13 @@ in {
       "wheel"
     ];
     packages = with pkgs; [
-      kdePackages.kate
       #  thunderbird
     ];
   };
 
   # Install firefox.
   programs.firefox.enable = true;
+  programs.chromium.enable = true;
 
   # Hyprland
   programs.hyprland = {
@@ -419,7 +419,7 @@ in {
     hyprpolkitagent
     xstow
     efibootmgr
-    nixfmt-rfc-style
+    nixfmt
     home-manager
     matugen
     gnome-bluetooth
@@ -431,6 +431,7 @@ in {
     wev
     wlsunset
     pywalfox-native
+    python314
 
     # Power management
     lm_sensors
@@ -459,6 +460,8 @@ in {
     vlc
     mpv
     smassh
+    chromium
+    imagemagick
 
     # launcher
     inputs.vicinae.packages.${pkgs.system}.default
