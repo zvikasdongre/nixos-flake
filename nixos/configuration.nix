@@ -7,16 +7,19 @@
   inputs,
   lib,
   ...
-}: let
+}:
+let
   wallpaper = pkgs.fetchurl {
     url = "https://w.wallhaven.cc/full/je/wallhaven-jeej1q.jpg";
     hash = "sha256-ez3QBbOkRApfrAHc0K622l5rdwWViUhIbUksw0ziZiU=";
   };
 
-  sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
+  system = pkgs.stdenv.hostPlatform.system;
+
+  sddm-theme = inputs.silentSDDM.packages.${system}.default.override {
     theme = "silvia";
 
-    extraBackgrounds = [wallpaper];
+    extraBackgrounds = [ wallpaper ];
     theme-overrides = {
       # Available options: https://github.com/uiriansan/SilentSDDM/wiki/Options
       "LoginScreen" = {
@@ -27,7 +30,8 @@
       };
     };
   };
-in {
+in
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -46,7 +50,7 @@ in {
       enable = true;
       efiSupport = true;
       efiInstallAsRemovable = false; # Otherwise /boot/EFI/BOOT/BOOTX64.EFI isn't generated
-      devices = ["nodev"];
+      devices = [ "nodev" ];
       useOSProber = false;
       extraEntriesBeforeNixOS = true;
 
@@ -185,26 +189,30 @@ in {
       dataDir = "${config.users.users.vikas.home}";
       settings = {
         devices = {
-          "Phone" = {id = "MSSR2JQ-I7R4NLL-LZFXP2X-Y2D7O3M-DMUB4NI-KUHRF6C-BWJVKZE-HJSZEAA";};
+          "Phone" = {
+            id = "MSSR2JQ-I7R4NLL-LZFXP2X-Y2D7O3M-DMUB4NI-KUHRF6C-BWJVKZE-HJSZEAA";
+          };
         };
 
         folders = {
           "ObsidianVault" = {
             path = "${config.users.users.vikas.home}/ObsidianVault";
-            devices = ["Phone"];
+            devices = [ "Phone" ];
           };
         };
       };
     };
   };
 
-  systemd.tmpfiles.rules = let
-    user = "vikas";
-    iconPath = "${config.users.users.vikas.home}/.face.icon";
-  in [
-    "f+ /var/lib/AccountsService/users/${user}  0600 root root -  [User]\\nIcon=/var/lib/AccountsService/icons/${user}\\n"
-    "L+ /var/lib/AccountsService/icons/${user}  -    -    -    -  ${iconPath}"
-  ];
+  systemd.tmpfiles.rules =
+    let
+      user = "vikas";
+      iconPath = "${config.users.users.vikas.home}/.face.icon";
+    in
+    [
+      "f+ /var/lib/AccountsService/users/${user}  0600 root root -  [User]\\nIcon=/var/lib/AccountsService/icons/${user}\\n"
+      "L+ /var/lib/AccountsService/icons/${user}  -    -    -    -  ${iconPath}"
+    ];
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -432,6 +440,8 @@ in {
     wlsunset
     pywalfox-native
     python314
+    nil
+    nixd
 
     # Power management
     lm_sensors
@@ -464,7 +474,7 @@ in {
     imagemagick
 
     # launcher
-    inputs.vicinae.packages.${pkgs.system}.default
+    inputs.vicinae.packages.${system}.default
 
     # screenshot utilities
     grimblast
@@ -511,7 +521,7 @@ in {
           "Ubuntu Sans"
           "Vazirmatn"
         ];
-        monospace = ["JetBrains Mono"];
+        monospace = [ "JetBrains Mono" ];
       };
     };
     fontDir.enable = true;
