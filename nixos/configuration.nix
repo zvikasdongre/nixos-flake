@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   config,
   pkgs,
@@ -71,23 +68,12 @@ in
     };
   };
 
-  networking.hostName = "kronos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
+  networking.hostName = "kronos";
   networking.networkmanager.enable = true;
-
-  # Enable bluetooth
   hardware.bluetooth.enable = true;
 
-  # Set your time zone.
   time.timeZone = "Asia/Kolkata";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -102,9 +88,7 @@ in
     LC_TIME = "en_IN";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
+  services.xserver.enable = false;
 
   # Enable Android UDEV rules
   services.udev.enable = true;
@@ -149,14 +133,9 @@ in
     HandlePowerKey = "ignore";
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
   services.upower.enable = true;
   services.tuned.enable = true;
 
@@ -174,34 +153,10 @@ in
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   services = {
     hypridle.enable = true;
-    syncthing = {
-      enable = true;
-      user = "vikas";
-      group = "users";
-      dataDir = "${config.users.users.vikas.home}";
-      settings = {
-        devices = {
-          "Phone" = {
-            id = "MSSR2JQ-I7R4NLL-LZFXP2X-Y2D7O3M-DMUB4NI-KUHRF6C-BWJVKZE-HJSZEAA";
-          };
-        };
-
-        folders = {
-          "ObsidianVault" = {
-            path = "${config.users.users.vikas.home}/ObsidianVault";
-            devices = [ "Phone" ];
-          };
-        };
-      };
-    };
   };
 
   systemd.tmpfiles.rules =
@@ -214,10 +169,6 @@ in
       "L+ /var/lib/AccountsService/icons/${user}  -    -    -    -  ${iconPath}"
     ];
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.vikas = {
     isNormalUser = true;
     description = "Vikas Dongre";
@@ -225,9 +176,7 @@ in
       "networkmanager"
       "wheel"
     ];
-    packages = with pkgs; [
-      #  thunderbird
-    ];
+    packages = [ ];
   };
 
   # Install firefox.
@@ -242,158 +191,6 @@ in
 
   programs.hyprlock.enable = true;
   programs.seahorse.enable = true;
-
-  # Setup git
-  programs.git = {
-    enable = true;
-    config = {
-      user.name = "Vikas Dongre";
-      user.email = "zvikasdongre@gmail.com";
-      init.defaultBranch = "main";
-    };
-  };
-
-  # Nvf
-  programs.nvf = {
-    enable = true;
-
-    settings.vim = {
-      viAlias = true;
-      vimAlias = true;
-
-      spellcheck = {
-        enable = true;
-      };
-
-      lsp = {
-        enable = true;
-
-        formatOnSave = true;
-        lightbulb.enable = true;
-        trouble.enable = true;
-      };
-
-      debugger = {
-        nvim-dap = {
-          enable = true;
-          ui.enable = true;
-        };
-      };
-
-      languages = {
-        enableFormat = true;
-        enableTreesitter = true;
-        enableExtraDiagnostics = true;
-
-        nix.enable = true;
-        markdown.enable = true;
-      };
-
-      visuals = {
-        nvim-web-devicons.enable = true;
-        nvim-cursorline.enable = true;
-        cinnamon-nvim.enable = true;
-        fidget-nvim.enable = true;
-
-        highlight-undo.enable = true;
-        indent-blankline.enable = true;
-      };
-
-      statusline = {
-        lualine = {
-          enable = true;
-          theme = "mellow";
-        };
-      };
-
-      theme = {
-        enable = true;
-        name = "mellow";
-        transparent = true;
-      };
-
-      autopairs.nvim-autopairs.enable = true;
-
-      snippets.luasnip.enable = true;
-
-      filetree = {
-        neo-tree = {
-          enable = true;
-        };
-      };
-
-      tabline = {
-        nvimBufferline.enable = true;
-      };
-
-      treesitter.context.enable = true;
-
-      binds = {
-        whichKey.enable = true;
-        cheatsheet.enable = true;
-      };
-
-      telescope.enable = true;
-
-      git = {
-        enable = true;
-        gitsigns.enable = true;
-      };
-
-      notify = {
-        nvim-notify.enable = true;
-      };
-
-      utility = {
-        diffview-nvim.enable = true;
-
-        motion = {
-          hop.enable = true;
-          leap.enable = true;
-        };
-        images = {
-        };
-      };
-
-      notes = {
-        todo-comments.enable = true;
-      };
-
-      terminal = {
-        toggleterm = {
-          enable = true;
-          lazygit.enable = true;
-        };
-      };
-
-      ui = {
-        borders.enable = true;
-        noice.enable = true;
-        colorizer.enable = true;
-        illuminate.enable = true;
-        breadcrumbs = {
-        };
-        smartcolumn = {
-          enable = true;
-          setupOpts.custom_colorcolumn = {
-            # this is a freeform module, it's `buftype = int;` for configuring column position
-            nix = "110";
-            ruby = "120";
-            java = "130";
-            go = [
-              "90"
-              "130"
-            ];
-          };
-        };
-        fastaction.enable = true;
-      };
-
-      comments = {
-        comment-nvim.enable = true;
-      };
-    };
-  };
 
   programs.fuse = {
     enable = true;
@@ -413,8 +210,6 @@ in
     portal.enable = true;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Essentials / Utilities
     wget
@@ -428,7 +223,6 @@ in
     xstow
     efibootmgr
     nixfmt
-    home-manager
     matugen
     gnome-bluetooth
     adw-gtk3
@@ -536,30 +330,5 @@ in
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.variables.XDG_RUNTIME_DIR = "/run/user/$UID";
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.05";
 }
