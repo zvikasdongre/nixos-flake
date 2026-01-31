@@ -327,6 +327,13 @@ in
     style = "kvantum";
   };
 
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+    ];
+  };
+
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.variables.XDG_RUNTIME_DIR = "/run/user/$UID";
 
