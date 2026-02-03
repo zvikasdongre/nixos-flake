@@ -337,5 +337,14 @@ in
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.variables.XDG_RUNTIME_DIR = "/run/user/$UID";
 
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      22000 # Syncthing
+      80
+      443
+    ];
+  };
+
   system.stateVersion = "25.05";
 }
