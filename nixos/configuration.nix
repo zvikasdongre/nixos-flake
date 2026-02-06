@@ -27,6 +27,11 @@ let
       };
     };
   };
+
+  custom-whitesur-icon-theme = pkgs.whitesur-icon-theme.override {
+    alternativeIcons = true;
+  };
+
 in
 {
   imports = [
@@ -288,7 +293,7 @@ in
     # themes & theming utilities
     mint-cursor-themes
     kvmarwaita
-    whitesur-icon-theme
+    custom-whitesur-icon-theme
     whitesur-gtk-theme
     nwg-look
     libsForQt5.qt5ct
