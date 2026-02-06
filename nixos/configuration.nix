@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   lib,
+  nix-cachyos-kernel,
   ...
 }:
 let
@@ -31,13 +32,18 @@ let
   custom-whitesur-icon-theme = pkgs.whitesur-icon-theme.override {
     alternativeIcons = true;
   };
-
 in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
+
+  nixpkgs.overlays = [
+    nix-cachyos-kernel.overlays.pinned
+  ];
+
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v4;
 
   # Use the GRUB 2 boot loader.
   boot.loader = {
@@ -54,10 +60,10 @@ in
       efiInstallAsRemovable = false; # Otherwise /boot/EFI/BOOT/BOOTX64.EFI isn't generated
       devices = [ "nodev" ];
       useOSProber = false;
-      extraEntriesBeforeNixOS = true;
+      extraEntriesBeforeNixOS = false;
 
       extraEntries = ''
-        menuentry "Linux Mint 22.2 Zara" --class linuxmint --class gnu-linux --class gnu --class os {
+        menuentry "Linux Mint" --class linuxmint --class gnu-linux --class gnu --class os {
           insmod part_gpt
           insmod ext2
 
