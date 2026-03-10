@@ -148,7 +148,7 @@ in
   services.printing.enable = true;
 
   services.upower.enable = true;
-  services.tuned.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.sddm.enableGnomeKeyring = true;
@@ -289,7 +289,7 @@ in
     wl-clipboard
 
     # quickshell
-    quickshell
+    inputs.noctalia-qs.packages.${system}.default
     kdePackages.qtsvg
     kdePackages.qt5compat
     kdePackages.qtimageformats
