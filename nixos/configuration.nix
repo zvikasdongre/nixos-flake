@@ -230,7 +230,6 @@ in
     brightnessctl
     dunst
     libnotify
-    hyprpolkitagent
     xstow
     efibootmgr
     nixfmt
@@ -247,6 +246,8 @@ in
     python314
     nil
     nixd
+    gpu-screen-recorder
+    ripgrep
 
     # Power management
     lm_sensors
