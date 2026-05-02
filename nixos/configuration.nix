@@ -71,7 +71,7 @@ in
 
           linux /boot/vmlinuz \
             root=UUID=ecbee46f-8de4-42a1-8129-f027a44ce230 \
-            ro quiet splash
+            ro quiet splash mem_sleep_default=deep
 
           initrd /boot/initrd.img
         }
@@ -251,7 +251,6 @@ in
 
     # Power management
     lm_sensors
-    powertop
 
     # Fonts
     jetbrains-mono
