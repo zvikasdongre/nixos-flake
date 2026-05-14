@@ -265,7 +265,6 @@ in
     ghostty
     gh
     cava
-    starship
     stow
     atuin
     btop
