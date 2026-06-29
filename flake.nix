@@ -29,6 +29,11 @@
     };
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {

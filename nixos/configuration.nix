@@ -289,6 +289,7 @@ in
 
     # quickshell
     inputs.noctalia-qs.packages.${system}.default
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     kdePackages.qtsvg
     kdePackages.qt5compat
     kdePackages.qtimageformats
