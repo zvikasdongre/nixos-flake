@@ -200,8 +200,12 @@ in
     withUWSM = true;
   };
 
+  programs.mango.enable = true;
+
   programs.hyprlock.enable = true;
   programs.seahorse.enable = true;
+
+  home-manager.backupFileExtension = "hm-backup";
 
   programs.fuse = {
     enable = true;
@@ -288,7 +292,6 @@ in
     wl-clipboard
 
     # quickshell
-    inputs.noctalia-qs.packages.${system}.default
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     kdePackages.qtsvg
     kdePackages.qt5compat

@@ -23,15 +23,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia-qs = {
-      url = "github:noctalia-dev/noctalia-qs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     noctalia = {
       url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    mangowm = {
+      url = "github:mangowm/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -55,6 +55,7 @@
       nixpkgs,
       home-manager,
       nix-cachyos-kernel,
+      mangowm,
       ...
     }@inputs:
     {
@@ -64,6 +65,7 @@
           inherit nix-cachyos-kernel;
         };
         modules = [
+          mangowm.nixosModules.mango
           ./nixos/configuration.nix
           home-manager.nixosModules.home-manager
           {
