@@ -132,15 +132,12 @@ in
     #jack.enable = true;
   };
 
-  systemd.tmpfiles.rules =
-    let
-      user = "vikas";
-      iconPath = "${config.users.users.vikas.home}/.face.icon";
-    in
-    [
-      "f+ /var/lib/AccountsService/users/${user}  0600 root root -  [User]\\nIcon=/var/lib/AccountsService/icons/${user}\\n"
-      "L+ /var/lib/AccountsService/icons/${user}  -    -    -    -  ${iconPath}"
-    ];
+  security.wrappers.btop = {
+    source = "${pkgs.btop}/bin/btop";
+    capabilities = "cap_perfmon+ep";
+    owner = "root";
+    group = "root";
+  };
 
   users.users.vikas = {
     isNormalUser = true;
