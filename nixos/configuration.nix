@@ -37,6 +37,7 @@ in
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    inputs.noctalia-greeter.nixosModules.default
   ];
 
   nixpkgs.overlays = [
@@ -107,11 +108,32 @@ in
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
+  services.greetd.enable = true;
+  programs.noctalia-greeter = {
+    enable = true;
+
+    # Optional configuration
+    greeter-args = "";
+    settings = {
+      appearance = {
+        hide_logo = true;
+      };
+      cursor = {
+        theme = "Bibata-Modern-Classic";
+        size = 24;
+        path = "${pkgs.bibata-cursors}/share/icons";
+      };
+      keyboard = {
+        layout = "us";
+      };
+    };
+  };
+
   # Enable SDDM.
   services.displayManager.sddm = {
     package = pkgs.kdePackages.sddm;
 
-    enable = true;
+    enable = false;
     wayland.enable = true;
     enableHidpi = true;
 
@@ -166,10 +188,6 @@ in
     #jack.enable = true;
   };
 
-  services = {
-    hypridle.enable = true;
-  };
-
   systemd.tmpfiles.rules =
     let
       user = "vikas";
@@ -202,7 +220,6 @@ in
 
   programs.mango.enable = true;
 
-  programs.hyprlock.enable = true;
   programs.seahorse.enable = true;
 
   home-manager.backupFileExtension = "hm-backup";
@@ -237,16 +254,11 @@ in
     xstow
     efibootmgr
     nixfmt
-    matugen
-    gnome-bluetooth
-    adw-gtk3
     usbutils
     libmtp
     glib
     jmtpfs
     wev
-    wlsunset
-    pywalfox-native
     python314
     nil
     nixd
@@ -277,27 +289,11 @@ in
     zed-editor
     vlc
     mpv
-    smassh
     chromium
     imagemagick
 
-    # launcher
-    inputs.vicinae.packages.${system}.default
-
-    # screenshot utilities
-    grimblast
-    grim
-    slurp
-    hyprpicker
-    wl-clipboard
-
-    # quickshell
+    # noctalia shell
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-    kdePackages.qtsvg
-    kdePackages.qt5compat
-    kdePackages.qtimageformats
-    kdePackages.qtmultimedia
-    kdePackages.qtvirtualkeyboard
 
     # themes & theming utilities
     mint-cursor-themes
@@ -323,11 +319,9 @@ in
       defaultFonts = {
         serif = [
           "Liberation Serif"
-          "Vazirmatn"
         ];
         sansSerif = [
           "Ubuntu Sans"
-          "Vazirmatn"
         ];
         monospace = [ "JetBrains Mono" ];
       };
