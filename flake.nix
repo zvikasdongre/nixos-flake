@@ -2,16 +2,7 @@
   description = "NixOS flake for my laptop";
 
   inputs = {
-    #nixpkgs.url = "github:nixos/nixpkgs?ref=25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    # Launcher
-    vicinae.url = "github:vicinaehq/vicinae";
-
-    silentSDDM = {
-      url = "github:uiriansan/SilentSDDM";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     nvf = {
       url = "github:NotAShelf/nvf";
@@ -41,12 +32,10 @@
 
   nixConfig = {
     extra-substituters = [
-      "https://vicinae.cachix.org"
       "https://attic.xuyh0120.win/lantian"
       "https://noctalia.cachix.org"
     ];
     extra-trusted-public-keys = [
-      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
     ];

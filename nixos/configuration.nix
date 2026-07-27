@@ -7,28 +7,6 @@
   ...
 }:
 let
-  wallpaper = pkgs.fetchurl {
-    url = "https://w.wallhaven.cc/full/je/wallhaven-jeej1q.jpg";
-    hash = "sha256-ez3QBbOkRApfrAHc0K622l5rdwWViUhIbUksw0ziZiU=";
-  };
-
-  system = pkgs.stdenv.hostPlatform.system;
-
-  sddm-theme = inputs.silentSDDM.packages.${system}.default.override {
-    theme = "silvia";
-
-    extraBackgrounds = [ wallpaper ];
-    theme-overrides = {
-      # Available options: https://github.com/uiriansan/SilentSDDM/wiki/Options
-      "LoginScreen" = {
-        background = "${wallpaper.name}";
-      };
-      "LockScreen" = {
-        background = "${wallpaper.name}";
-      };
-    };
-  };
-
   custom-whitesur-icon-theme = pkgs.whitesur-icon-theme.override {
     alternativeIcons = true;
   };
@@ -129,39 +107,6 @@ in
     };
   };
 
-  # Enable SDDM.
-  services.displayManager.sddm = {
-    package = pkgs.kdePackages.sddm;
-
-    enable = false;
-    wayland.enable = true;
-    enableHidpi = true;
-
-    theme = sddm-theme.pname;
-    extraPackages = sddm-theme.propagatedBuildInputs;
-
-    settings = {
-      General = {
-        GreeterEnvironment = lib.concatStringsSep "," [
-          "QT_QPA_PLATFORM=wayland"
-          "QT_WAYLAND_FORCE_DPI=192"
-          "QT_SCALE_FACTOR=1"
-          "QT_AUTO_SCREEN_SCALE_FACTOR=0"
-          "QT_SCREEN_SCALE_FACTORS=2"
-          "QT_FONT_DPI=192"
-          "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/"
-          "QT_IM_MODULE=qtvirtualkeyboard"
-        ];
-        InputMethod = "qtvirtualkeyboard";
-      };
-
-      Theme = {
-        CursorTheme = "Bibata-Modern-Classic";
-        CursorSize = 24;
-      };
-    };
-  };
-
   services.logind.settings.Login = {
     HandlePowerKey = "ignore";
   };
@@ -173,7 +118,6 @@ in
   services.power-profiles-daemon.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
-  security.pam.services.sddm.enableGnomeKeyring = true;
   security.pam.services.login.enableGnomeKeyring = true;
 
   # Enable sound with pipewire.
@@ -304,8 +248,6 @@ in
     libsForQt5.qt5ct
     kdePackages.qt6ct
     kdePackages.qtstyleplugin-kvantum
-    sddm-theme
-    sddm-theme.test
   ];
 
   fonts = {
