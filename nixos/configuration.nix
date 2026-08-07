@@ -5,13 +5,11 @@
   lib,
   nix-cachyos-kernel,
   ...
-}:
-let
+}: let
   custom-whitesur-icon-theme = pkgs.whitesur-icon-theme.override {
     alternativeIcons = true;
   };
-in
-{
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -37,7 +35,7 @@ in
       enable = true;
       efiSupport = true;
       efiInstallAsRemovable = false; # Otherwise /boot/EFI/BOOT/BOOTX64.EFI isn't generated
-      devices = [ "nodev" ];
+      devices = ["nodev"];
       useOSProber = false;
       extraEntriesBeforeNixOS = false;
 
@@ -146,7 +144,7 @@ in
       "networkmanager"
       "wheel"
     ];
-    packages = [ ];
+    packages = [];
   };
 
   # Install firefox.
@@ -198,7 +196,6 @@ in
     usbutils
     libmtp
     glib
-    jmtpfs
     wev
     python314
     nil
@@ -262,7 +259,7 @@ in
         sansSerif = [
           "Ubuntu Sans"
         ];
-        monospace = [ "JetBrains Mono" ];
+        monospace = ["JetBrains Mono"];
       };
     };
     fontDir.enable = true;
