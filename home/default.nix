@@ -1,6 +1,8 @@
-{ pkgs, config, ... }:
-
 {
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ./programs
     ./services
@@ -13,6 +15,7 @@
   home.packages = with pkgs; [
   ];
 
+  home.pointerCursor.enable = true;
   home.pointerCursor = {
     gtk.enable = true;
     # x11.enable = true;
