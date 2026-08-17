@@ -157,11 +157,11 @@ in {
     withUWSM = true;
   };
 
+  programs.niri.enable = true;
+
   programs.mango.enable = true;
 
   programs.seahorse.enable = true;
-
-  home-manager.backupFileExtension = "hm-backup";
 
   programs.fuse = {
     enable = true;

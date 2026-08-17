@@ -4,5 +4,6 @@
     ./nvf.nix
     ./qbittorrent.nix
     ./starship.nix
+    ./niri.nix
   ];
 }
