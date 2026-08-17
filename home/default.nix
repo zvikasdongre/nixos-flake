@@ -29,6 +29,10 @@
 
     gtk4.theme = config.gtk.theme;
 
+    # fixes noctalia overwriting gtk.css files
+    gtk4.extraCss = "@import url(\"noctalia.css\");";
+    gtk3.extraCss = "@import url(\"noctalia.css\");";
+
     theme = {
       package = pkgs.adw-gtk3;
       name = "adw-gtk3-dark";
