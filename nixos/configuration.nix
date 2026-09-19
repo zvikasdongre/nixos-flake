@@ -214,7 +214,7 @@ in {
     material-symbols
 
     # Common Programs
-    vscode
+    # vscode
     nemo-with-extensions
     fastfetch
     ghostty
@@ -224,11 +224,11 @@ in {
     atuin
     btop
     pix
-    obsidian
+    # obsidian
     zed-editor
     vlc
     mpv
-    chromium
+    # chromium
     imagemagick
 
     # noctalia shell
