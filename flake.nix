@@ -15,11 +15,6 @@
     };
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-
-    mangowm = {
-      url = "github:mangowm/mango";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   nixConfig = {
@@ -36,7 +31,6 @@
     nixpkgs,
     home-manager,
     nix-cachyos-kernel,
-    mangowm,
     ...
   } @ inputs: {
     nixosConfigurations.kronos = nixpkgs.lib.nixosSystem {
@@ -45,7 +39,6 @@
         inherit nix-cachyos-kernel;
       };
       modules = [
-        mangowm.nixosModules.mango
         ./nixos/configuration.nix
         home-manager.nixosModules.home-manager
         {

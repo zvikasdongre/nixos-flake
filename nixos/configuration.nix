@@ -157,7 +157,6 @@ in {
   };
 
   programs.niri.enable = true;
-  programs.mango.enable = true;
 
   programs.seahorse.enable = true;
 
