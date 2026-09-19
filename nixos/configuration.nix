@@ -13,7 +13,6 @@ in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    inputs.noctalia-greeter.nixosModules.default
   ];
 
   nixpkgs.overlays = [
@@ -86,23 +85,16 @@ in {
   services.udisks2.enable = true;
 
   services.greetd.enable = true;
-  programs.noctalia-greeter = {
+  services.displayManager.noctalia-greeter = {
     enable = true;
-
-    # Optional configuration
-    greeter-args = "";
     settings = {
-      appearance = {
-        hide_logo = true;
-      };
-      cursor = {
-        theme = "Bibata-Modern-Classic";
-        size = 24;
-        path = "${pkgs.bibata-cursors}/share/icons";
-      };
-      keyboard = {
-        layout = "us";
-      };
+      appearance.hide_logo = true;
+      cursor.size = 24;
+      keyboard.layout = "us";
+    };
+    cursorTheme = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
     };
   };
 
@@ -158,8 +150,13 @@ in {
     withUWSM = true;
   };
 
-  programs.niri.enable = true;
+  # Noctalia
+  programs.noctalia = {
+    enable = true;
+    recommendedServices.enable = true;
+  };
 
+  programs.niri.enable = true;
   programs.mango.enable = true;
 
   programs.seahorse.enable = true;
@@ -230,9 +227,6 @@ in {
     mpv
     # chromium
     imagemagick
-
-    # noctalia shell
-    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # themes & theming utilities
     mint-cursor-themes
