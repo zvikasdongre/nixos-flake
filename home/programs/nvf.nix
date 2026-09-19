@@ -1,8 +1,4 @@
-{
-  inputs,
-  ...
-}:
-{
+{inputs, ...}: {
   imports = [
     inputs.nvf.homeManagerModules.default
   ];
@@ -55,7 +51,7 @@
       statusline = {
         lualine = {
           enable = true;
-          theme = "mellow";
+          setupOpts.options.theme = "mellow";
         };
       };
 
@@ -147,5 +143,4 @@
       };
     };
   };
-
 }
