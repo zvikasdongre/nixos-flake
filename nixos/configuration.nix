@@ -33,6 +33,7 @@ in {
 
     grub = {
       enable = true;
+      gfxmodeEfi = "1600x1200x32,auto";
       efiSupport = true;
       efiInstallAsRemovable = false; # Otherwise /boot/EFI/BOOT/BOOTX64.EFI isn't generated
       devices = ["nodev"];
@@ -48,7 +49,7 @@ in {
 
           linux /boot/vmlinuz \
             root=UUID=ecbee46f-8de4-42a1-8129-f027a44ce230 \
-            ro quiet splash mem_sleep_default=deep
+            ro quiet splash
 
           initrd /boot/initrd.img
         }
