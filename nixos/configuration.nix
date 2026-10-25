@@ -157,8 +157,6 @@ in {
     recommendedServices.enable = true;
   };
 
-  programs.niri.enable = true;
-
   programs.seahorse.enable = true;
 
   programs.fuse = {
