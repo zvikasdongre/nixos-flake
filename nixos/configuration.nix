@@ -106,7 +106,8 @@ in {
   services.printing.enable = true;
 
   services.upower.enable = true;
-  services.power-profiles-daemon.enable = true;
+  services.power-profiles-daemon.enable = false;
+  services.tuned.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
@@ -175,7 +176,16 @@ in {
 
   xdg = {
     mime.enable = true;
-    portal.enable = true;
+    portal = {
+      enable = true;
+      # extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      config = {
+        common.default = ["hyprland"];
+        hyprland = {
+          default = ["hyprland"];
+        };
+      };
+    };
   };
 
   environment.systemPackages = with pkgs; [
