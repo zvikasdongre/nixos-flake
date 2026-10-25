@@ -167,10 +167,15 @@ in {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    substituters = lib.mkForce [
+      "https://nixos-cache-proxy.cofob.dev"
+    ];
+  };
 
   xdg = {
     mime.enable = true;
