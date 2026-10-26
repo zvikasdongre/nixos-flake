@@ -5,5 +5,6 @@
     ./qbittorrent.nix
     ./starship.nix
     ./niri.nix
+    ./foot.nix
   ];
 }

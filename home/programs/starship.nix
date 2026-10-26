@@ -2,18 +2,18 @@
   ...
 }:
 {
-  programs.starship = {
+  programs.foot = {
     enable = true;
-    # Configuration written to ~/.config/starship.toml
-    settings = {
-      add_newline = false;
 
-      character = {
-        success_symbol = "[➜](bold green)";
-        error_symbol = "[➜](bold red)";
+    settings = {
+      main = {
+        include = "~/.config/foot/themes/noctalia";
+        font = "JetBrains Mono:size=11";
       };
 
-      git_branch.symbol = " ";
+      scrollback = {
+        multiplier = "4.0";
+      };
     };
   };
 }
